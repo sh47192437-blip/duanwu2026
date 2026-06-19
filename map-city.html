@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_5713e54476da13a385cf83d78488c3ad {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="position:fixed;bottom:30px;left:30px;z-index:9999;
+     background:white;padding:12px 16px;border-radius:10px;
+     box-shadow:0 2px 10px rgba(0,0,0,0.2);font-size:13px;line-height:1.9;
+     max-width:200px;">
+<b>🚗 端午文化之旅路线图</b><br>
+<span style="color:green;">🟢</span> 苏州（出发/返回）<br>
+<span style="color:blue;">🔵</span> 滁州·琅琊山<br>
+<span style="color:#E67E22;">🟠</span> 扬州·瘦西湖<br>
+<span style="color:#2980B9;">━ ━</span> 自驾路线<br><br>
+<b>分段距离：</b><br>
+苏州→滁州：约280km<br>
+滁州→扬州：约100km<br>
+扬州→苏州：约100km<br>
+<b>全程约480km</b>
+</div>
+    
+<div style="position:fixed;top:10px;left:50%;transform:translateX(-50%);
+     z-index:9999;background:#fff;padding:10px 20px;border-radius:20px;
+     box-shadow:0 2px 10px rgba(0,0,0,0.15);font-size:15px;font-weight:bold;
+     color:#2980B9;text-align:center;white-space:nowrap;">
+🏛️ 端午文化之旅 · 苏州→琅琊山→扬州瘦西湖→苏州
+</div>
+    
+            <div class="folium-map" id="map_5713e54476da13a385cf83d78488c3ad" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_5713e54476da13a385cf83d78488c3ad = L.map(
+                "map_5713e54476da13a385cf83d78488c3ad",
+                {
+                    center: [31.6, 119.5],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_c92750e2fb540048d2aa0bf8cf177349 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_c92750e2fb540048d2aa0bf8cf177349.addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var tile_layer_f0c0438871d00f9542ebb10220028a21 = L.tileLayer(
+                "https://webrd02.is.autonavi.com/appmaptile?lang=zh_cn\u0026size=1\u0026scale=1\u0026style=8\u0026x={x}\u0026y={y}\u0026z={z}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u9ad8\u5fb7\u5730\u56fe",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_f0c0438871d00f9542ebb10220028a21.addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var poly_line_8972321e926ae657e3e48b484ca2d134 = L.polyline(
+                [[31.2989, 120.5853], [32.3019, 118.3219], [32.2533, 118.2972], [32.3936, 119.4212], [32.402, 119.398], [31.2989, 120.5853]],
+                {"bubblingMouseEvents": true, "color": "#2980B9", "dashArray": "12, 8", "dashOffset": null, "fill": false, "fillColor": "#2980B9", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+        var popup_0481e45d7e0a6c204d0fced6a44c45d2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e0b005aa628392f973dcc4825452a936 = $(`<div id="html_e0b005aa628392f973dcc4825452a936" style="width: 100.0%; height: 100.0%;">自驾路线（全程约522km）</div>`)[0];
+                popup_0481e45d7e0a6c204d0fced6a44c45d2.setContent(html_e0b005aa628392f973dcc4825452a936);
+            
+        
+
+        poly_line_8972321e926ae657e3e48b484ca2d134.bindPopup(popup_0481e45d7e0a6c204d0fced6a44c45d2)
+        ;
+
+        
+    
+    
+            var marker_1b3bfada2449ab0c72900d048178f34d = L.marker(
+                [31.800400000000003, 119.4536],
+                {
+}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var div_icon_81700566dba2bae312e1a6831b3c80e2 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:14px;color:#2980B9;transform:rotate(-66.10001736725667deg);text-shadow:1px 1px 0 #fff;\"\u003e\u27a4\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_1b3bfada2449ab0c72900d048178f34d.setIcon(div_icon_81700566dba2bae312e1a6831b3c80e2);
+            
+    
+            var marker_07afec3b1ca1d826048d17b2737b4795 = L.marker(
+                [32.27760000000001, 118.30955],
+                {
+}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var div_icon_71181d7282a3abbc042ded5e0f3bdd85 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:14px;color:#2980B9;transform:rotate(-153.05893597985943deg);text-shadow:1px 1px 0 #fff;\"\u003e\u27a4\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_07afec3b1ca1d826048d17b2737b4795.setIcon(div_icon_71181d7282a3abbc042ded5e0f3bdd85);
+            
+    
+            var marker_f116f1ad9f0f48024775296720445f5d = L.marker(
+                [32.32345, 118.8592],
+                {
+}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var div_icon_088edcdc10922ff4ad51935f6c3114a5 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:14px;color:#2980B9;transform:rotate(82.88502200357068deg);text-shadow:1px 1px 0 #fff;\"\u003e\u27a4\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_f116f1ad9f0f48024775296720445f5d.setIcon(div_icon_088edcdc10922ff4ad51935f6c3114a5);
+            
+    
+            var marker_6da8c2a9133c13c276bd01162f9ce5bc = L.marker(
+                [32.397800000000004, 119.4096],
+                {
+}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var div_icon_4987f686183fe24921db46dcd9f6e86d = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:14px;color:#2980B9;transform:rotate(-70.09625046269056deg);text-shadow:1px 1px 0 #fff;\"\u003e\u27a4\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_6da8c2a9133c13c276bd01162f9ce5bc.setIcon(div_icon_4987f686183fe24921db46dcd9f6e86d);
+            
+    
+            var marker_f1c26a70c69619837a0888e83beff085 = L.marker(
+                [31.850450000000002, 119.99164999999999],
+                {
+}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var div_icon_83d3f0294af6ca6ee0ecca96fba313ef = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:14px;color:#2980B9;transform:rotate(132.8946327632456deg);text-shadow:1px 1px 0 #fff;\"\u003e\u27a4\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_f1c26a70c69619837a0888e83beff085.setIcon(div_icon_83d3f0294af6ca6ee0ecca96fba313ef);
+            
+    
+            var marker_927f234dbed54299e924754b0e07feab = L.marker(
+                [31.2989, 120.5853],
+                {
+}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var icon_0b8b702b8a537157b44e9a7ac866700d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d020d8de62d961fa8f64137fe215c097 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_966e9a0ad141b326a2b60d66609a25ce = $(`<div id="html_966e9a0ad141b326a2b60d66609a25ce" style="width: 100.0%; height: 100.0%;"><b>苏州 🚗</b><br>出发点 / 终点</div>`)[0];
+                popup_d020d8de62d961fa8f64137fe215c097.setContent(html_966e9a0ad141b326a2b60d66609a25ce);
+            
+        
+
+        marker_927f234dbed54299e924754b0e07feab.bindPopup(popup_d020d8de62d961fa8f64137fe215c097)
+        ;
+
+        
+    
+    
+            marker_927f234dbed54299e924754b0e07feab.bindTooltip(
+                `<div>
+                     苏州
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_927f234dbed54299e924754b0e07feab.setIcon(icon_0b8b702b8a537157b44e9a7ac866700d);
+            
+    
+            var marker_8e365daf6c3724d67a213890ab4a0640 = L.marker(
+                [32.3019, 118.3219],
+                {
+}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var icon_f313df5f2728be79f6581d6ff961d103 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "bed",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_772176ea9b4a88e3b716c4432d46ef7b = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_1c197696d7e500f9e3ed7736877131bc = $(`<div id="html_1c197696d7e500f9e3ed7736877131bc" style="width: 100.0%; height: 100.0%;"><b>滁州市区 🏨</b><br>Day 1 抵达 / 住宿</div>`)[0];
+                popup_772176ea9b4a88e3b716c4432d46ef7b.setContent(html_1c197696d7e500f9e3ed7736877131bc);
+            
+        
+
+        marker_8e365daf6c3724d67a213890ab4a0640.bindPopup(popup_772176ea9b4a88e3b716c4432d46ef7b)
+        ;
+
+        
+    
+    
+            marker_8e365daf6c3724d67a213890ab4a0640.bindTooltip(
+                `<div>
+                     滁州市区
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8e365daf6c3724d67a213890ab4a0640.setIcon(icon_f313df5f2728be79f6581d6ff961d103);
+            
+    
+            var marker_4f3356a5f5c8dbd796cd76b0def8d07b = L.marker(
+                [32.2533, 118.2972],
+                {
+}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var icon_a6ff46847fcd8926e3442201097ff354 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "tree",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d568861390280c735eadda5e16d8f064 = L.popup({
+  "maxWidth": 220,
+});
+
+        
+            
+                var html_728770b9e6bbdd3184f42f2cc9653893 = $(`<div id="html_728770b9e6bbdd3184f42f2cc9653893" style="width: 100.0%; height: 100.0%;"><b>琅琊山 ⛰️</b><br>Day 2 全天游览<br>醉翁亭 · 深秀湖 · 南天门</div>`)[0];
+                popup_d568861390280c735eadda5e16d8f064.setContent(html_728770b9e6bbdd3184f42f2cc9653893);
+            
+        
+
+        marker_4f3356a5f5c8dbd796cd76b0def8d07b.bindPopup(popup_d568861390280c735eadda5e16d8f064)
+        ;
+
+        
+    
+    
+            marker_4f3356a5f5c8dbd796cd76b0def8d07b.bindTooltip(
+                `<div>
+                     琅琊山
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4f3356a5f5c8dbd796cd76b0def8d07b.setIcon(icon_a6ff46847fcd8926e3442201097ff354);
+            
+    
+            var marker_e8ea03e9b3dc1358159200973e33bd5f = L.marker(
+                [32.3936, 119.4212],
+                {
+}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var icon_591286611f84acc976063a4d39daa431 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "camera",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e112a6c747787ff033d1d5bdae326a7c = L.popup({
+  "maxWidth": 220,
+});
+
+        
+            
+                var html_dd5fef34e7ff1ad43775581fb5e816d5 = $(`<div id="html_dd5fef34e7ff1ad43775581fb5e816d5" style="width: 100.0%; height: 100.0%;"><b>扬州市区 🏯</b><br>Day 3 下午游览<br>瘦西湖 · 东关街</div>`)[0];
+                popup_e112a6c747787ff033d1d5bdae326a7c.setContent(html_dd5fef34e7ff1ad43775581fb5e816d5);
+            
+        
+
+        marker_e8ea03e9b3dc1358159200973e33bd5f.bindPopup(popup_e112a6c747787ff033d1d5bdae326a7c)
+        ;
+
+        
+    
+    
+            marker_e8ea03e9b3dc1358159200973e33bd5f.bindTooltip(
+                `<div>
+                     扬州市区
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e8ea03e9b3dc1358159200973e33bd5f.setIcon(icon_591286611f84acc976063a4d39daa431);
+            
+    
+            var marker_a98371834a89410bbb37fb978c3c0a27 = L.marker(
+                [32.402, 119.398],
+                {
+}
+            ).addTo(map_5713e54476da13a385cf83d78488c3ad);
+        
+    
+            var icon_6617daef6d266dbf52c453d04c11f92a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d3b808ca3116e38071310e2df71e04f5 = L.popup({
+  "maxWidth": 220,
+});
+
+        
+            
+                var html_97b09e6dd4971c1387b03973bd2639db = $(`<div id="html_97b09e6dd4971c1387b03973bd2639db" style="width: 100.0%; height: 100.0%;"><b>瘦西湖 🏛️</b><br>Day 3 下午<br>🚢 五亭桥 · 白塔 · 二十四桥<br>🍜 扬州美食</div>`)[0];
+                popup_d3b808ca3116e38071310e2df71e04f5.setContent(html_97b09e6dd4971c1387b03973bd2639db);
+            
+        
+
+        marker_a98371834a89410bbb37fb978c3c0a27.bindPopup(popup_d3b808ca3116e38071310e2df71e04f5)
+        ;
+
+        
+    
+    
+            marker_a98371834a89410bbb37fb978c3c0a27.bindTooltip(
+                `<div>
+                     瘦西湖
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a98371834a89410bbb37fb978c3c0a27.setIcon(icon_6617daef6d266dbf52c453d04c11f92a);
+            
+</script>
+</html>
